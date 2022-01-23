@@ -7,7 +7,52 @@
     <link rel="stylesheet" href="/css/style.css">
 </head>
 <body>
-    <h1>hellosjdbsj</h1>
-    <%= dataUsers %>
+
+    <div class="nav">
+        <ul>
+            <a class="headerHover" href="#"><li style="background-color: rgb(10, 110, 69);">Home</li></a>
+            <a class="headerHover" href="#"><li>Todos</li></a>
+            <a class="headerHover" href="#"><li>Abouts</li></a>
+            <a class="headerHover" href="#"><li>Users</li></a>
+        </ul>
+    </div>
+    <br>
+    <h2 style="color: black; margin-bottom: 10px;">List Users</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>firstName</th>
+                <th>lastName</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <% for( let i=0; i < dataUsers.length; i++) { %>
+                <tr>
+                    <td> <%= dataUsers[i].id %> </td>
+                    <td> <%= dataUsers[i].firstName %> </td>
+                    <td> <%= dataUsers[i].lastName %> </td>
+                    <td>
+                        <a class="getLink" href="/detail/users/<%= dataUsers[i].id %>" target="blank"><button> Detail </button></a>
+                        <a class="getLink" href="/detail/users/<%= dataUsers[i].id %>" target="blank"><button> Edit </button></a>
+                        <a class="getLink" href="/detail/users/<%= dataUsers[i].id %>" target="blank"><button> Delete </button></a>
+                    </td>
+                </tr>
+            <% } %>
+        </tbody>
+    </table>
+   
+    <h3 style="color: black;text-align: center; margin: 10px 0 5 0;">create-new-Users</h3>
+    <div class="form-container" > 
+         <form action="/create-newUsers" method="post">
+            <input class="form-input" type="text" placeholder="FirstName" name="firstName"><br>
+            <input class="form-input" type="text" placeholder="LastName" name="lastName"><br>
+            <input class="form-input" type="text" placeholder="Age " name="age"><br>
+            <input class="form-input" type="text" placeholder="Email" name="email"><br>
+            <button class="btn-submit" type="submit">Submit</button>
+         </form>
+    </div>
 </body>
 </html>

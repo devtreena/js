@@ -1,17 +1,27 @@
-import connection from '../configs/connectDB';
+import { redirect } from 'express/lib/response';
+import pool from '../configs/connectDB';
 
-let getHomepage = (req, res) =>{
-    let data = []
-    connection.query(
-        'SELECT * FROM Users',
-        function (err, results, fields){
-            console.log('check mysql :', results[0])
-            data = results.map((row) => { return row} )
-        }
-    )
-    return res.render('index.ejs', { dataUsers : JSON.stringify(data) })
+let getHomepage = async (req, res) =>{
+    const [rows, fields] = await pool.execute('SELECT * FROM Users');      
+    return res.render('index.ejs', { dataUsers : rows} );
+}
+
+let getDetailpage = async (req, res) =>{
+    let userId = req.params.userId;
+    let [Users] = await pool.execute(`SELECT * FROM Users where id = ?`, [userId]);
+    return res.send(Users);
+}
+
+let getNewusers = async (req, res) =>{
+    let firstName = req.body.firstName;
+    let lastName = req.body.lastName;
+    let age = req.body.age;
+    let email = req.body.email;
+
+    await pool.execute(`INSERT INTO Users (firstName, lastName, age, email) values(?, ?, ?, ?)`, [firstName, lastName, age, email]);
+    return res.redirect('/');
 }
 
 module.exports = {
-    getHomepage
+    getHomepage, getDetailpage, getNewusers 
 }
