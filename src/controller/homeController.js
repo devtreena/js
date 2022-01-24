@@ -1,6 +1,7 @@
 import { redirect } from 'express/lib/response';
 import pool from '../configs/connectDB';
 import multer from 'multer';
+import path from 'path';
 
 
 let getHomepage = async (req, res) =>{
@@ -51,7 +52,7 @@ let getUploadfile = async (req, res) =>{
     return res.render('uploadFile.ejs');
 }
 
-let handleUploadfile = async (req, res) =>{
+let handleUploadfile = async (req, res) =>{ //single file
         if (req.fileValidationError) {
             return res.send(req.fileValidationError);
         }
@@ -59,9 +60,28 @@ let handleUploadfile = async (req, res) =>{
             return res.send('Please select an image to upload');
         }
 
-        res.send(`You have uploaded this image: <hr/><img src="/images/${req.file.filename}" width="500"><hr /><a href="./upload-file">Upload another image</a>`);
+        res.send(`You have uploaded this image: <hr/>
+                <img src="/images/${req.file.filename}" width="500"> 
+                <hr/> <a href="./upload-file">Upload another image</a>`);
 }
 
+let handleUploadMultiplefile = async (req, res) =>{ //multiple file
+    if (req.fileValidationError) {
+        return res.send(req.fileValidationError);
+    }
+    else if (!req.files) {
+        return res.send('Please select an image to upload');
+    }
+
+    let result = "You have uploaded these images: <hr/>";
+
+        for (let i = 0; i < req.files.length; i++) {
+            result += `<img src="/images/${req.files[i].filename}" width="300" style="margin-right: 20px;">`;
+        }
+        result += `<hr/> <a href="./upload-file">Upload more images</a>`;
+        res.send(result);
+}
 module.exports = {
-    getHomepage, getDetailpage, getNewusers, deleteUser, getEditpage, postUpdateuser, getUploadfile, handleUploadfile
+    getHomepage, getDetailpage, getNewusers, deleteUser, getEditpage, postUpdateuser,
+     getUploadfile, handleUploadfile, handleUploadMultiplefile
 }

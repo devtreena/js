@@ -35,6 +35,7 @@ const initWebRoute = (app) =>{
 
     router.get('/upload-file', homeController.getUploadfile);
     router.post('/upload-single-file', upload.single('single'), homeController.handleUploadfile);
+    router.post('/upload-multiple-file', upload.array('multiple', 10), homeController.handleUploadMultiplefile);
     return app.use('/', router);
 }
 
