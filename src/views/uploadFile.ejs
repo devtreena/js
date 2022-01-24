@@ -1,0 +1,33 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+    <div class="nav">
+        <ul>
+            <a  href="/"><li>Home</li></a>
+            <a class="headeractive" href="/upload-file" style="background-color: rgb(10, 110, 69);"><li>Upload file</li></a>
+        </ul>
+    </div>
+    <br>
+    <div class="upload-file-container">
+        <form action="/upload-single-file" method="post" enctype="multipart/form-data">
+            Avatar : <input type="file" name="single">
+            <br>
+            <button style="border-radius: 2px; margin: 4px;" type="submit" value="upload"> Save File</button>
+        </form>
+
+        <form action="/upload-mutiple-file" method="post" enctype="multipart/form-data">
+            Images : <input type="file" name="multiple" multiple>
+            <br>
+            <button style="border-radius: 2px; margin: 4px;" type="submit" value="upload"> Save File</button>
+        </form>
+    </div>
+
+</body>
+</html>

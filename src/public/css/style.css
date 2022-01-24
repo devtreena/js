@@ -35,10 +35,7 @@ a{
     display: block;
     color: white;
 }
-.headerHover:hover{
-    opacity: 0.8;
-    background-color: rgb(10, 110, 69);
-}
+
 
 button {
   padding: 2px;
@@ -68,4 +65,8 @@ button {
   border-radius: 2px;
   outline: none;
   padding: 4px;
+}
+
+.headeractive:active{
+  background-color: rgb(10, 110, 69);
 }
